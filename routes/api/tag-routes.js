@@ -7,27 +7,14 @@ router.get('/', (req, res) => {
   // find all tags
   // be sure to include its associated Product data
   Tag.findAll({
-    attributes: [
-      'id',
-      'product_url',
-      'title',
-      'created_at',
-      [sequelize.literal('(SELECT COUNT(*) FROM vote WHERE product.id = producttag.product_id)'), 'producttag_count']
-    ],
-    order: [['created_at', 'DESC']],
+    attributes: ["id", "tag_name"],
     include: [
       {
-        model: Tag,
-        attributes: ['id', 'tag_text', 'product_id', 'category_id', 'created_at'],
-        include: {
-          model: Category,
-          attributes: ['category_name']
-        }
+        model: Product,
+        attributes: ['id', 'product_name', 'price', 'stock', 'category_id'],
+        through: ProductTag,
+        as: "products",
       },
-      {
-        model: Category,
-        attributes: ['category_name']
-      }
     ]
   })
     .then(dbTagData => res.json(dbTagData))
@@ -44,26 +31,15 @@ router.get('/:id', (req, res) => {
     where: {
       id: req.params.id
     },
-    attributes: [
-      'id',
-      'product_url',
-      'title',
-      'created_at',
-      [sequelize.literal('(SELECT COUNT(*) FROM vote WHERE post.id = vote.post_id)'), 'vote_count']
-    ],
     include: [
       {
-        model: Tag,
-        attributes: ['id', 'tag_text', 'product_id', 'category_id', 'created_at'],
+        model: Product,
+        attributes: ['id', 'product_name', 'price', 'stock', 'category_id'],
         include: {
-          model: Category,
-          attributes: ['category_name']
+          through: ProductTag,
+          as: 'products'
         }
       },
-      {
-        model: Category,
-        attributes: ['category_name']
-      }
     ]
   })
     .then(dbTagData => {
@@ -82,9 +58,7 @@ router.get('/:id', (req, res) => {
 router.post('/', (req, res) => {
   // create a new tag
   Tag.create({
-    title: req.body.title,
-    post_url: req.body.post_url,
-    user_id: req.body.user_id
+    tag_name: req.body.tag_name,
   })
     .then(dbTagData => res.json(dbTagData))
     .catch(err => {
@@ -96,16 +70,11 @@ router.post('/', (req, res) => {
 
 router.put('/:id', (req, res) => {
   // update a tag's name by its `id` value
-  Tag.update(
-    {
-      title: req.body.title
-    },
-    {
-      where: {
-        id: req.params.id
-      }
+  Tag.update(req.body, {
+    where: {
+      id: req.params.id
     }
-  )
+  })
     .then(dbTagData => {
       if (!dbTagData) {
         res.status(404).json({ message: 'No tag found with this id' });
