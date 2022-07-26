@@ -10,9 +10,10 @@ router.get('/', (req, res) => {
   Post.findAll({
     attributes: [
       'id',
-      'product_url',
-      'title',
-      'created_at',
+      'product_name',
+      'price',
+      'stock',
+      'category_id'
       [sequelize.literal('(SELECT COUNT(*) FROM vote WHERE product.id = producttag.product_id)'), 'producttag_count']
     ],
     order: [['created_at', 'DESC']],
