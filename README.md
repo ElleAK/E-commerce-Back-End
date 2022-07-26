@@ -28,8 +28,13 @@
   ## Author:
   #### Lindsey Kelly
 
-  ## Walkthrough Video
-  #### 
+  ## Walkthrough Videos
+  ### Seed Database and Start Server
+  #### https://drive.google.com/file/d/1WOVihCbcWqc4AENki4uVbJ7dQqGRi2VD/view
+  ### GET Routes
+  ####
+  ### PUT, POST, DELETE Routes
+  ####
 
   ## License: ![License: ODbL](https://img.shields.io/badge/License-PDDL-brightgreen.svg)
   #### https://opendatacommons.org/licenses/pddl/
