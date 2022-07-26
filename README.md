@@ -31,10 +31,9 @@
   ## Walkthrough Videos
   ### Seed Database and Start Server
   #### https://drive.google.com/file/d/1WOVihCbcWqc4AENki4uVbJ7dQqGRi2VD/view
-  ### GET Routes
-  ####
-  ### PUT, POST, DELETE Routes
-  ####
+  ### GET, POST Routes
+  #### https://drive.google.com/file/d/1d61cr2zUE806nVf3cET8MdQggj2pgE-N/view
+ 
 
   ## License: ![License: ODbL](https://img.shields.io/badge/License-PDDL-brightgreen.svg)
   #### https://opendatacommons.org/licenses/pddl/
